@@ -1,0 +1,100 @@
+/****           GRAMMAR .NET LAB1             ****/
+
+SCI             = '-?[1-9](\d*)(?:\.\d+)?[Ee][-+]?\d+'  #  Scientific notation values
+DEC             = '-?\d*(\.\d+)'                        #  Decimal values
+INT             = '(?<![\.\w\-eE])-?(\d+)(?![\d\.Ee])'  #  Integer values
+EQ              = '='                                   #  Assignment operator
+ID              = '[A-Za-z_0-9]+'                       #  Identifiers
+NEWLINE         = '\n'                                  #  Line endings
+SKIP            = '([ \t])'                             #  Skip over spaces, tabs
+RBO             = '\('                                  #  Round bracket open        
+RBC             = '\)'                                  #  Round bracket close
+SBO             = '\['                                  #  Square bracket open
+SBC             = '\]'                                  #  Square bracket close
+LINK            = '\-\-'                                #  Link symbol
+COMA            = ','                                   #  Coma
+VOLTAGESOURCE   = 'voltagesource'                       #  Voltagesource method 
+VOLTAGREPROBE   = 'voltageprobe'                        #  Voltageprobe method
+CURRENTSOURCE   = 'currentsource'                       #  Currentsource method
+CURRENTPROBE    = 'currentprobe'                        #  Currentprobe method
+RESISTOR        = 'resistor'                            #  Resisotr method
+CAPACITOR       = 'capacitor'                           #  Capacitor method
+INDUCTOR        = 'inductor'                            #  Inductor method
+DIODE           = 'diode'                               #  Diode method
+
+
+program -> BEGIN NEWLINE declarations module_separator links END
+
+
+/****              declarations                 ****/
+
+declarations -> declaration declarations
+declarations -> Epsilon
+
+declaration -> ID EQ method NEWLINE
+
+method -> voltagesource
+method -> voltageprobe
+method -> currentsource
+method -> currentprobe
+method -> resistor
+method -> capacitor
+method -> inductor
+method -> diode
+
+voltagesource -> VOLTAGESOURCE RBO optional_num RBC 
+
+voltageprobe -> VOLTAGREPROBE RBO RBC 
+
+currentsource -> CURRENTSOURCE RBO optional_num RBC 
+
+currentprobe -> CURRENTPROBE RBO RBC
+
+resistor -> RESISTOR RBO NUM RBC
+
+capacitor -> CAPACITOR RBO NUM RBC
+
+inductor -> INDUCTOR RBO NUM RBC
+
+diode -> DIODE named_args RBC
+
+optional_num -> num
+optional_num -> Epsilon
+
+num -> INT
+num -> DEC
+num -> SCI
+
+named_args -> named_arg next_named_arg
+named_args -> Epsilon
+
+next_named_arg -> COMA named_arg next_named_arg
+next_named_arg -> Epsilon
+
+named_arg -> ID EQ NUM
+
+
+/****        empty_lines, module_separator        ****/
+
+module_separator -> NEWLINE empty_lines
+
+empty_lines -> NEWLINE empty_lines
+empty_lines -> Epsilon
+
+new_lines -> NEWLINE new_lines 
+new_lines -> Epsilon
+
+
+/****                   links                     ****/
+
+links -> link links
+links -> Epsilon
+
+link -> linkable_value LNK linkable_value next_link NEWLINE
+next_link -> LINK linkable_value next_link
+next_link -> Epsilon
+
+linkable_value -> GND
+linkable_value -> indexed_value
+
+indexed_value -> ID SBO INT SBC
