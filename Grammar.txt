@@ -23,6 +23,8 @@ INDUCTOR        = 'inductor'                            #  Inductor method
 DIODE           = 'diode'                               #  Diode method
 
 
+/****               PROGRAM                     ****/
+
 program -> BEGIN NEWLINE declarations module_separator links END
 
 

@@ -1,0 +1,32 @@
+._cir01.net:
+RuntimeError: Error: Unexpected character 'ü' on line 1
+
+._cir02.net:
+RuntimeError: Error: Unexpected character '´' on line 1
+
+._cir11.net:
+RuntimeError: Error: Unexpected character 'ü' on line 1
+
+._cir12.net:
+RuntimeError: Error: Unexpected character '´' on line 1
+
+cir00.net ok
+
+cir01.net ok
+
+cir02.net ok
+
+cir10.net:
+RuntimeError: Expected token: EQ current Token(type='SBO', value='[', line=6, column=4)
+
+cir11.net:
+RuntimeError: Expected INT DEC or SCI tokens current Token(type='RBC', value=')', line=4, column=12)
+
+cir12.net
+RuntimeError: Expected token: RBO current Token(type='NEWLINE', value='\n', line=7, column=19)
+
+cir20.net
+RuntimeError: Expected token: INT current Token(type='SBC', value=']', line=11, column=5)
+
+cir30.net
+RuntimeError: Expected token: NEWLINE current Token(type='ID', value='C1', line=2, column=18)

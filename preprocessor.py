@@ -23,6 +23,5 @@ def preprocess(input_text, debug):
     if debug is True:
         print(f'Input text after preprocessing:\n---\n{result_string}\n---\n')
     return result_string
-            
                     
         
